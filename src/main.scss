@@ -1,3 +1,25 @@
 body {
   background-color: aquamarine;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+img {
+  width: 100%;
+}
+
+article {
+  width: 50%;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.flags__card {
+  background-color: white;
+  padding: 1em;
+  border-radius: 10px;
+  margin-bottom: 1em;
+}
+
+.flags__img {
+  width: 50%;
 }
