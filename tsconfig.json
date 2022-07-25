@@ -9,6 +9,7 @@
     "allowJs": true,
     "removeComments": true,
     "moduleResolution": "node",
+    "skipLibCheck": true,
     "typeRoots": [
       "node_modules/@types"
     ],
