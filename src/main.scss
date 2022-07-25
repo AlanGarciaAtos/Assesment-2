@@ -1,6 +1,9 @@
+// For some reason I installed tingle but it didn't get the styles.
+@import './styles/tingle.min.css', './styles/sass/variables';
+
 body {
-  background-color: aquamarine;
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: $background;
+  font-family: $font;
 }
 
 img {
@@ -13,11 +16,20 @@ article {
   text-align: center;
 }
 
+.flags {
+  display: flex;
+  justify-content: center;
+}
+
 .flags__card {
-  background-color: white;
+  background-color: $white;
   padding: 1em;
   border-radius: 10px;
-  margin-bottom: 1em;
+  margin: 1em;
+}
+
+.tingle-demo {
+  display: none;
 }
 
 .flags__img {
