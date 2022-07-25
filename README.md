@@ -205,3 +205,5 @@ Get the info with axios.✅
 
 The list of countries must be ordered bby its official name in ascending mode
 There must be a button to toggle the order of the countries from ascending and descending.
+
+http://en.wikipedia.org/api/rest_v1/page/summary/{country}
