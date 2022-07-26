@@ -28,6 +28,9 @@ let flagsCard2 = document.querySelector('.flags_card2');
  */
 const obtainCountries = async () => {
   const countries: HTMLElement = document.getElementById('flags__card');
+  const countriesTable: HTMLElement = document.getElementById('contentTable');
+  console.log(countriesTable);
+
   let infoModalCountry = document.querySelector('.info__modal');
 
   try {
@@ -68,18 +71,36 @@ const obtainCountries = async () => {
       // flagsCard2.appendChild(flagsCard);
 
       let countryElements: string = '';
+      // data.forEach((country: any) => {
+      //   countries.innerHTML += `
+      //     <section class="flags__card">
+      //       <h2>${country.name.common}</h2>
+      //       <h3>${hasCapital(country.capital)}</h3>
+      //       <p>${country.region}</p>
+      //       <p>${hasLanguage(country.languages)}</p>
+      //       <p>${country.population}</p>
+      //       <p>${country.flag}</p>
+      //     </section>
+      //   `
+      // });
+
+      //TODO Why the languages column has a lot of space, if I don't add the Object.values it doesn't add the space
       data.forEach((country: any) => {
-        countries.innerHTML += `
-          <section class="flags__card">
-            <h2>${country.name.common}</h2>
-            <h3>${hasCapital(country.capital)}</h3>
-            <p>${country.region}</p>
-            <p>${hasLanguage(country.languages)}</p>
-            <p>${country.population}</p>
-            <p>${country.flag}</p>
-          </section>
+        countriesTable.innerHTML += `
+        <tbody>
+          <tr>
+            <th>${country.name.common}</th>
+            <th>${hasCapital(country.capital)}</th>
+            <th>${country.region}</th>
+            <th style="word-break: break-word;">${Object.values(country.languages)}</th>
+            <th>${country.population}</th>
+            <th>${country.flag}</th>
+          </tr>
+        </tbody>
         `
       });
+
+
 
       // Various methods (beforebegin, afterbegin, beforeend, afterend) 
       // response.forEach((country: any) => {

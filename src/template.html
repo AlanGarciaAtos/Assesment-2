@@ -11,30 +11,7 @@
     <button>Toggle</button>
     <main>
       <article class="flags">
-        <section class="flags__card">
-          <h2>Mexico</h2>
-          <h3>Mexico city</h3>
-          <h3>Americas</h3>
-          <p>Spanish</p>
-          <p>12,999,312</p>
-          <img
-            class="flags__img"
-            src="../instructions.png"
-            alt="flag country image"
-          />
-        </section>
-        <section class="flags__card flags_card2" id="flags__card">
-          <h2></h2>
-          <h3></h3>
-          <h3></h3>
-          <p></p>
-          <p></p>
-          <img
-            class="flags__img"
-            src="../instructions.png"
-            alt="flag country image"
-          />
-        </section>
+        <section class="flags__card flags_card2" id="flags__card"></section>
       </article>
 
       <button class="js-tingle-modal-1 tingle-btn tingle-btn--primary">
@@ -44,14 +21,16 @@
       <article class="flags__table">
         <table id="table">
           <thead>
-            <tr>
-              <th>Official Name</th>
-              <th>Capital</th>
-              <th>Region</th>
-              <th>Language</th>
-              <th>Population</th>
-              <th>Flag</th>
-            </tr>
+            <tbody>
+              <tr class="table__titles">
+                <th>Official Name</th>
+                <th>Capital</th>
+                <th>Region</th>
+                <th>Language</th>
+                <th>Population</th>
+                <th>Flag</th>
+              </tr>              
+            </tbody>
           </thead>
           <tbody id="contentTable"></tbody>
         </table>

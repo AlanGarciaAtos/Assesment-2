@@ -10,9 +10,15 @@ img {
   width: 100%;
 }
 
+table {
+  /* this somehow makes it work for td */
+  table-layout: fixed;
+  width: 100%;
+}
+
 article {
-  width: 50%;
-  margin: 0 auto;
+  // width: 50%;
+  // margin: 0 auto;
   text-align: center;
 }
 
@@ -34,4 +40,16 @@ article {
 
 .flags__img {
   width: 50%;
+}
+
+.flags__table {
+  background-color: white;
+  border: 1px solid cadetblue;
+  padding: 2em;
+}
+
+.table__titles {
+  color: blue;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
