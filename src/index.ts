@@ -89,7 +89,7 @@ const obtainCountries = async () => {
         countriesTable.innerHTML += `
         <tbody>
           <tr>
-            <th>${country.name.common}</th>
+            <th><a href="${wiki}">${country.name.common}</a></th>
             <th>${hasCapital(country.capital)}</th>
             <th>${country.region}</th>
             <th style="word-break: break-word;">${Object.values(country.languages)}</th>

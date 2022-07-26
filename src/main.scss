@@ -22,6 +22,14 @@ article {
   text-align: center;
 }
 
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: $background-dark;
+}
+
 .flags {
   display: flex;
   justify-content: center;
