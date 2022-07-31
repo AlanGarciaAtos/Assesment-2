@@ -30,6 +30,18 @@ a:hover {
   color: $background-dark;
 }
 
+.btn {
+  padding: 1em;
+  background-color: brown;
+  color: aliceblue;
+  border: none;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: rgb(209, 56, 56);
+}
+
 .flags {
   display: flex;
   justify-content: center;
