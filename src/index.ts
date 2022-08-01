@@ -19,6 +19,33 @@ enum Country {
 }
 
 let flagsCard2 = document.querySelector('.flags_card2');
+let btnToggle = document.getElementById('btnToggle');
+
+const form = document.getElementById('form');
+const inputForm = document.getElementById('search__input')! as HTMLInputElement;
+
+//Filter the countries by name buuuuut in console
+const dataForm: any = (data: any) => {
+  form.addEventListener('keyup', async (e) => {
+    e.preventDefault();
+
+    // const userInput = inputForm.value.charAt(0).toUpperCase() + inputForm.value.slice(1);
+    const userInput = inputForm.value.toLowerCase();
+
+    const filterArray = data.filter((item: any) => {
+      const letterApi = item.name.common;
+      // console.log(letterApi);
+
+      if (letterApi.indexOf(userInput) !== -1) {
+        return item;
+      }
+    })
+
+    // allcountries(filterArray);
+    console.log(filterArray);
+    console.log(userInput);
+  });
+};
 
 /**
  * We're using the async/await syntax to make an HTTP request to the REST Countries API, and then we're
@@ -32,11 +59,11 @@ const obtainCountries = async () => {
   let infoModalCountry = document.querySelector('.info__modal');
 
   try {
-    //TODO Error: Property 'get' does not exist on type 'typeof import(...)'
     const response = await axios.get(API_URL_ALL);
 
     let dataCountries = response.data;
-    // console.log(dataCountries);//Greenland
+    console.log(Object.values(dataCountries[0].languages).toLocaleString());
+    //TODO It searchs the country by name but in console and It doens't work
 
     flagsCard2.innerHTML = '';
 
@@ -53,10 +80,28 @@ const obtainCountries = async () => {
       //   return <PokemonListing pokemon={currentPokemon} key={index}/>
       // })
 
+      let sortDirection = true;
       // Sort the countries by name (alphabetically).
       dataCountries.sort((a: any, b: any) => (a.name.common > b.name.common ? 1 : -1));
 
-      //An attempt to sort by name, it was better the above solution for f sake
+      //TODO It doesn't sort in the DOM && console but in console shows it. It works the button but I don't know why the sorting doesn't work
+      btnToggle.addEventListener('click', () => {
+        dataCountries.sort((a: any, b: any) => {
+          if (sortDirection === false) {
+            return a.name.common < b.name.common ? 1 : -1;
+          } else {
+            return a.name.common > b.name.common ? 1 : -1;
+          }
+        });
+        sortDirection = false;
+        console.log("TEST");
+      });
+
+      // btnToggle.addEventListener('click', () => {
+      //   dataCountries.sort((a: any, b: any) => (a.name.common > b.name.common ? 1 : -1));
+      // });
+
+      //An attempt to sort by name, it was not better the above solution for f sake
       // let allCountriesName = dataCountries.sort((a: any, b: any) => a.name.common - b.name.common).forEach((country: any) => {
       //   countriesTable.innerHTML += `
       //   <tbody>
@@ -70,8 +115,12 @@ const obtainCountries = async () => {
       //   `
       // });
 
+      let infoModalCountry = document.querySelector('.info__modal');
+      infoModalCountry.innerHTML = response.data.extract_html;
+      console.log(infoModalCountry);
+
       //TODO Add the correctly the languages
-      let allCountries = dataCountries.forEach((country: any) => {
+      dataCountries.forEach((country: any) => {
         countriesTable.innerHTML += `
         <tbody>
           <tr>
@@ -83,7 +132,7 @@ const obtainCountries = async () => {
             <th>${hasCapital(country.capital)}</th>
             <th>${country.region}</th>
             <th style="word-break: break-word;">
-              ${country.languages}
+              ${country && country.languages && Object.values(country.languages).toLocaleString()}
             </th>
             <th>${country.population}</th>
             <th>${country.flag}</th>
@@ -91,6 +140,12 @@ const obtainCountries = async () => {
         </tbody>
         `
       });
+
+      tingleModal(dataCountries);
+
+      //It does filter the countries by name but in console buut I don't know if the filter is apply correct.
+      dataForm(dataCountries);
+      console.log(countriesTable);
     }
   } catch (err) {
     //Getting the "extract_html", why here well because I got an error 404 i could change it because everything stopped before it could add the country so I added here and voila! I know it's a "hack"
@@ -101,6 +156,7 @@ const obtainCountries = async () => {
   }
 }
 
+//TODO I get the extract_html but need to add in tinglejs
 const getCountryWiki = function (nameCountry: string): string {
   let wiki: any = 'https://en.wikipedia.org/api/rest_v1/page/summary/';
 
@@ -118,24 +174,34 @@ function hasCapital<T>(capital: string) {
 function hasLanguage(language: string[]) {
   return (language) ? language : 'No Language to display';
 }
+
 obtainCountries();
+// let infoModalCountry = document.querySelector('.info__modal');
+// infoModalCountry.innerHTML = response.data.extract_html;
+// console.log(infoModalCountry)
 
 //* Tingle js
-const modalTinyNoFooter = new tingle.modal({
-  onOpen: function () {
-    console.log('modal open');
-  },
-});
-const btn = document.querySelector('.js-tingle-modal-1');
+function tingleModal(data: any) {
+  const modalTinyNoFooter = new tingle.modal({
+    onOpen: function () {
+      console.log('modal open');
+    },
+  });
+  const btn = document.querySelector('.js-tingle-modal-1');
 
-btn.addEventListener('click', function () {
-  modalTinyNoFooter.open();
-  // modalTinyNoFooter.setContent(`${responseWiki.data.extract_html}`);
-});
+  btn.addEventListener('click', function () {
+    modalTinyNoFooter.open();
+    // modalTinyNoFooter.setContent(`${responseWiki.data.extract_html}`);
+  });
 
-//TODO It should show this html however responseWiki is not define, although I can put it all in the try catch....buuut I don't think that's a good idea.
-modalTinyNoFooter.setContent(
-  '<p><b>El Salvador</b>, officially the <b>Republic of El Salvador</b>, is a country in Central America. It is bordered on the northeast by Honduras, on the northwest by Guatemala, and on the south by the Pacific Ocean. El Salvadors capital and largest city is San Salvador. The countrys population in 2021 is estimated to be 6.8 million.</p>'
-);
+  //TODO It should show this html however responseWiki is not define, although I can put it all in the try catch....buuut I don't think that's a good idea.
+  modalTinyNoFooter.setContent(
+    "<p><b>Antigua and Barbuda</b> is a sovereign island country in the West Indies in the Americas, lying between the Caribbean Sea and the Atlantic Ocean. It consists of two major islands, Antigua and Barbuda separated by around 40 km (25 mi), and smaller islands. The permanent population number is estimated to be in the region of 97,120 with 97% residing on Antigua. The capital and largest port and city is St. John's on Antigua, with Codrington being the largest town on Barbuda. Lying near each other, Antigua and Barbuda are in the middle of the Leeward Islands, part of the Lesser Antilles, roughly at 17°N of the equator.</p>"
+  );
+}
+
+
+// tingleModal();
+
 
 
